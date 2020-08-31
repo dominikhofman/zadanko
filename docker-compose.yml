@@ -2,7 +2,12 @@ version: "3"
 services:
   random:
     build: ./docker/random
-    # command: tail -f /dev/null
     restart: always
     ports:
       - "5000:5000"
+
+  csv:
+    build: ./docker/csv
+    restart: always
+    ports:
+      - "5001:5001"
