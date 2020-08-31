@@ -19,11 +19,11 @@ def generate_random_data_record() -> dict:
     if latlong is not None:
         latitude, longitude = latlong
 
+    country = None
     try:
-        if (country := pycountry.countries.get(alpha_2=country_code)) is not None:
-            country = country.name
-    except LookupError:
-        country = None
+        country = pycountry.countries.get(alpha_2=country_code).name
+    except Exception:
+        pass
 
     record = {
         "_type": "Position",
