@@ -2,7 +2,7 @@ import random
 import string
 
 from faker import Faker
-from flask import Flask, jsonify, Response
+from flask import Flask, jsonify, Response, abort
 import pycountry
 
 fake = Faker(['it_IT', 'en_US', 'ja_JP', 'pl_PL'])
@@ -56,10 +56,12 @@ def generate_random_data_record() -> dict:
     return record_with_nones
 
 
-
 @app.route('/generate/json/<int:size>', methods=['GET'])
-def summary(size: int) -> Response:
+def generate_endpoint(size: int) -> Response:
+    if size > 1000:
+        abort(Response("Size too high (>1000)", status=418))
     records = [generate_random_data_record() for _ in range(size)]
     return jsonify(records)
+
 
 app.run(host="0.0.0.0", debug=True)
