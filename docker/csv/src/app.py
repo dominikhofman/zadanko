@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 import csv
 import io
@@ -10,7 +11,8 @@ app = Flask(__name__)
 
 
 def get_data_records(size: int = 1) -> List[dict]:
-    r = requests.get(f"http://random:5000/generate/json/{size}")
+    r = requests.get(
+        f"http://{os.environ['RANDOM_GENERATOR_HOST']}:{os.environ['RANDOM_GENERATOR_PORT']}/generate/json/{size}")
     r.raise_for_status()
     return r.json()
 
