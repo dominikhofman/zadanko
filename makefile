@@ -7,8 +7,11 @@ test:
 up:
 	docker-compose up -d --build
 
+ps:
+	docker-compose ps
+
 stop:
 	docker-compose stop -t0 random
 
 logs:
-	docker-compose logs -f random
+	docker-compose logs -f
